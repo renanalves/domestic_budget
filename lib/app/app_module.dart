@@ -1,3 +1,4 @@
+import 'package:domestic_budget_app/app/modules/home/home_module.dart';
 import 'package:domestic_budget_app/app/modules/initial/initial_module.dart';
 import 'package:domestic_budget_app/app/shared/services/connection_service.dart';
 import 'package:domestic_budget_app/app/shared/services/local_storage_service.dart';
@@ -17,6 +18,7 @@ class AppModule extends MainModule {
   @override
   List<Router> get routers => [
         Router('/', module: InitialModule()),
+        Router('/home', module: HomeModule()),
       ];
 
   @override
