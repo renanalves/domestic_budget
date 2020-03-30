@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:domestic_budget_app/app/app_module.dart';
-import 'package:domestic_budget_app/app/build_type.dart';
 import 'package:domestic_budget_app/app/modules/initial/initial_module.dart';
 import 'package:domestic_budget_app/app/modules/initial/initial_repository.dart';
 import 'package:domestic_budget_app/app/shared/models/user_model.dart';
 import 'package:domestic_budget_app/app/shared/services/local_storage_service.dart';
 import 'package:domestic_budget_app/app/shared/util/http_api.dart';
+import 'package:domestic_budget_app/build_type.dart';
 import 'package:flutter_modular/flutter_modular_test.dart';
 
 import 'package:flutter_test/flutter_test.dart';
@@ -56,15 +56,15 @@ void main() {
         ),
       );
       UserModel response = await repository.login(identifier, password);
-      String jwt = await localStorageService.getString('jwt');
+      String jwt = await localStorageService.getThing('jwt');
       print(jwt);
       expect(response.email, tUser.email);
     });
 
     test('should return the saved jwt in the local storage', () async {
-      when(mockLocalStorage.getString('jwt'))
+      when(mockLocalStorage.getThing('jwt'))
           .thenAnswer((_) async => Future.value('jkdjskdjksajdklsdjkskas'));
-      String jwt = await mockLocalStorage.getString('jwt');
+      String jwt = await mockLocalStorage.getThing('jwt');
       print(jwt);
     });
   });

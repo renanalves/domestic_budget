@@ -18,7 +18,17 @@ class InitialRepository extends Disposable {
     Dio dio = httpApi.getDioInstance();
     Response resp = await dio.post('/auth/local',
         data: {'identifier': identifier, 'password': password});
-    localStorageService.setString('jwt', resp.data['jwt']);
+    localStorageService.setThing('jwt', resp.data['jwt']);
+    return UserModel.fromJson(resp.data['user']);
+  }
+
+  Future<UserModel> sigin(UserModel userModel) async {
+    LocalStorageService localStorageService = LocalStorageService.getInstance();
+    HttpApi httpApi = GetIt.I.get<HttpApi>();
+    Dio dio = httpApi.getDioInstance();
+    Response resp = await dio.post('/auth/local',
+        data: userModel.toJson());
+    localStorageService.setThing('jwt', resp.data['jwt']);
     return UserModel.fromJson(resp.data['user']);
   }
 
